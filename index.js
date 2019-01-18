@@ -47,6 +47,7 @@ const generateDom = (todo) => {
     return newTodo
 }
 
+// Create new todo item
 document.querySelector('#add-form').addEventListener('submit', function (e) {
     e.preventDefault()
     let text = e.target.elements.addTodo.value
@@ -60,5 +61,17 @@ document.querySelector('#add-form').addEventListener('submit', function (e) {
     e.target.elements.addTodo.value = ''
     renderTodos(todos)
 })
+
+// Create complete todo
+document.querySelector('#todo-list').addEventListener('click', function (e) {
+
+    if (e.target.tagName === 'LI') {
+        e.target.checked = !e.target.checked
+        console.log(e); // TODO console.log
+    }
+})
+const completeTodo = () => {
+
+}
 
 renderTodos(todos)
