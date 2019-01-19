@@ -38,22 +38,33 @@ console.log(filterTodos(todos)); // TODO console.log
 // Generate DOM Element for an individual todo
 const generateDom = (todo) => {
     const newTodo = document.createElement('li')
-    newTodo.className = 'list-group-item'
-    newTodo.innerHTML = `<div class="d-flex justify-content-between">
-                        <div class="ml-3">
-                            <input class="form-check-input" id="${todo.id}" type="checkbox">
+    newTodo.className = 'list-group-item d-flex justify-content-between'
+    // Create el for text todo
+    const todoText = document.createElement('div')
+    todoText.className = 'ml-3'
+    todoText.innerHTML = ` <input class="form-check-input" id="${todo.id}" type="checkbox">
                             <label for="${todo.id}">${todo.text}</label>
-                            <div class="small text-secondary">${todo.date}</div>
-                        </div>
-                        <div>
-                            <button class="btn btn-sm btn-secondary">
-                                <i class="fa fa-pencil" aria-hidden="true"></i>
-                            </button>
-                            <button class="btn btn-sm btn-secondary">
-                                <i class="fa fa-trash-o" aria-hidden="true"></i>
-                            </button>
-                        </div>
-                    </div>`
+                            <div class="small text-secondary">${todo.date}</div>`
+    // Create wrapper for buttons
+    const btnGroup = document.createElement('div')
+    // Create btn for edit todo
+    const btnEdit = document.createElement('button')
+    btnEdit.className = 'btn btn-sm btn-secondary'
+    btnEdit.innerHTML = '<i class="fa fa-pencil" aria-hidden="true"></i>'
+    // Create btn for delete todo
+    const btnDelete = document.createElement('button')
+    btnDelete.className = 'btn btn-sm btn-secondary'
+    btnDelete.innerHTML = '<i class="fa fa-trash-o" aria-hidden="true"></i>'
+    // Add element to the li parent tag
+    btnGroup.appendChild(btnEdit)
+    btnGroup.appendChild(btnDelete)
+    
+    newTodo.appendChild(todoText)
+    newTodo.appendChild(btnGroup)
+    
+    btnDelete.addEventListener('click', function () {
+        removeTodo(this)
+    })
 
     return newTodo
 }
@@ -74,8 +85,17 @@ document.querySelector('#add-form').addEventListener('submit', function (e) {
     renderTodos(todos)
 })
 
+// Delete todo item
 function removeTodo(el) {
-    console.log(el.target); // TODO console.log
+    const removeEl = el.offsetParent
+    const removeElId = removeEl.getElementsByTagName('input').item(0).id
+    removeEl.remove()
+
+    todos.forEach(function (item, index) {
+        if(item.id === removeElId) {
+            todos.splice(index, 1)
+        }
+    })
 }
 
 // Genetate random id
