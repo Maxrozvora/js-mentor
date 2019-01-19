@@ -2,17 +2,20 @@ const todos = [
     {
         text: 'Buy bread',
         completed: false,
-        date: '13.01.2019, 14:24:33'
+        date: '13.01.2019, 14:24:33',
+        id: doId()
     },
     {
         text: 'Clean room',
         completed: false,
-        date: '14.01.2019, 3:11:12'
+        date: '14.01.2019, 3:11:12',
+        id: doId()
     },
     {
         text: 'Go to the river',
         completed: true,
-        date: '12.01.2019, 15:64:54'
+        date: '12.01.2019, 15:64:54',
+        id: doId()
     }
 ]
 
@@ -24,14 +27,22 @@ const renderTodos = (todos) => {
     })
 }
 
+const filterTodos = (todos) => {
+    return todos.sort((a, b) => {
+        return  b.date - a.date
+    })
+}
+
+console.log(filterTodos(todos)); // TODO console.log
+
 // Generate DOM Element for an individual todo
 const generateDom = (todo) => {
     const newTodo = document.createElement('li')
     newTodo.className = 'list-group-item'
     newTodo.innerHTML = `<div class="d-flex justify-content-between">
                         <div class="ml-3">
-                            <input class="form-check-input" type="checkbox">
-                            <span>${todo.text}</span>
+                            <input class="form-check-input" id="${todo.id}" type="checkbox">
+                            <label for="${todo.id}">${todo.text}</label>
                             <div class="small text-secondary">${todo.date}</div>
                         </div>
                         <div>
@@ -55,12 +66,22 @@ document.querySelector('#add-form').addEventListener('submit', function (e) {
     let todo = {
         text,
         completed: false,
-        date
+        date,
+        id: doId()
     }
     todos.unshift(todo)
     e.target.elements.addTodo.value = ''
     renderTodos(todos)
 })
+
+function removeTodo(el) {
+    console.log(el.target); // TODO console.log
+}
+
+// Genetate random id
+function doId() {
+    return Math.random().toString(36).substr(2, 16)
+}
 
 // Create complete todo
 document.querySelector('#todo-list').addEventListener('click', function (e) {
