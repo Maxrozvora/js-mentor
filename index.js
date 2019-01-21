@@ -1,23 +1,5 @@
-const todos = [
-    {
-        text: 'Buy bread',
-        completed: false,
-        date: '13.01.2019, 14:24:33',
-        id: doId()
-    },
-    {
-        text: 'Clean room',
-        completed: false,
-        date: '14.01.2019, 3:11:12',
-        id: doId()
-    },
-    {
-        text: 'Go to the river',
-        completed: true,
-        date: '12.01.2019, 15:64:54',
-        id: doId()
-    }
-]
+const todos = getTodos()
+
 
 // Render todos
 // const renderTodos = (todos) => {
@@ -62,13 +44,31 @@ document.querySelector('#add-form').addEventListener('submit', function (e) {
         id: doId()
     }
     todos.push(todo)
+    setTodos(todos)
     e.target.elements.addTodo.value = ''
-    renderTodos(todos)
+    console.log(getTodos()); // TODO console.log
 })
 
 // Generate random id
 function doId() {
     return Math.random().toString(36).substr(2, 16)
 }
+
+// Set todos to localStorage
+function setTodos(todos) {
+    localStorage.setItem('todos', JSON.stringify(todos))
+}
+
+// Get saved todos from localStorage
+function getTodos() {
+    const todosJSON = localStorage.getItem('todos')
+    if(todosJSON !==null) {
+        return JSON.parse(todosJSON)
+    } else {
+        return []
+    }
+}
+
+console.log(getTodos()); // TODO console.log
 
 // renderTodos(todos)
