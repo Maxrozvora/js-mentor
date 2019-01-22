@@ -13,9 +13,15 @@ document.querySelector('#add-form').addEventListener('submit', function (e) {
     }
     todos.push(todo)
     setTodos(todos)
-    e.target.elements.nameTodo.value = ''
+    resetAddTodoForm(e)
     console.log(getTodos()); // TODO console.log
 })
+
+// Clean form inputs
+function resetAddTodoForm (e) {
+    e.target.elements.nameTodo.value = ''
+    e.target.elements.dueDate.value = ''
+}
 
 // Generate random id
 function doId() {
