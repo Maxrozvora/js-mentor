@@ -35,7 +35,7 @@ const todos = getTodos()
 // Create new todo item
 document.querySelector('#add-form').addEventListener('submit', function (e) {
     e.preventDefault()
-    let text = e.target.elements.addTodo.value
+    let text = e.target.elements.nameTodo.value
     let date = new Date().toLocaleString()
     let todo = {
         text,
@@ -45,7 +45,7 @@ document.querySelector('#add-form').addEventListener('submit', function (e) {
     }
     todos.push(todo)
     setTodos(todos)
-    e.target.elements.addTodo.value = ''
+    e.target.elements.nameTodo.value = ''
     console.log(getTodos()); // TODO console.log
 })
 
