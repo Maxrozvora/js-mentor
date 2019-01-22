@@ -9,7 +9,7 @@ document.querySelector('#add-form').addEventListener('submit', function (e) {
         text,
         completed: false,
         date,
-        id: doId()
+        id: generateId()
     }
     todos.push(todo)
     setTodos(todos)
@@ -24,7 +24,7 @@ function resetAddTodoForm (e) {
 }
 
 // Generate random id
-function doId() {
+function generateId() {
     return Math.random().toString(36).substr(2, 16)
 }
 
