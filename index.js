@@ -25,21 +25,21 @@ function resetAddTodoForm (e) {
 
 // Generate random id
 function generateId() {
-    return Math.random().toString(36).substr(2, 16)
+    return Math.random().toString(36).substr(2, 16);
 }
 
 // Set todos to localStorage
 function setTodos(todos) {
-    localStorage.setItem('todos', JSON.stringify(todos))
+    localStorage.setItem('todos', JSON.stringify(todos));
 }
 
 // Get saved todos from localStorage
 function getTodos() {
     const todosJSON = localStorage.getItem('todos');
     if(todosJSON !==null) {
-        return JSON.parse(todosJSON)
+        return JSON.parse(todosJSON);
     } else {
-        return []
+        return [];
     }
 }
 
