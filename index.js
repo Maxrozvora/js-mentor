@@ -10,12 +10,12 @@ document.querySelector('#add-form').addEventListener('submit', function (e) {
         completed: false,
         date,
         id: generateId()
-    }
-    todos.push(todo);
+    };
+    todos.todos.push(todo);
     setTodos(todos);
     resetAddTodoForm(e);
-    console.log(getTodos()); // TODO console.log
-})
+    displayTodos(todos);
+});
 
 // Clean form inputs
 function resetAddTodoForm (e) {
@@ -39,10 +39,17 @@ function getTodos() {
     if(todosJSON !==null) {
         return JSON.parse(todosJSON);
     } else {
-        return [];
+        return {
+            todos: []
+        };
     }
 }
 
-console.log(getTodos()); // TODO console.log
+function displayTodos(todos) {
+    const template = document.querySelector('#todo-item').innerHTML;
+    Mustache.parse(template);
+    const rendered = Mustache.render(template, todos);
+    document.querySelector('#todo-list2').innerHTML = rendered;
+}
 
-// renderTodos(todos)
+displayTodos(todos);
