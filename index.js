@@ -44,12 +44,41 @@ function getTodos() {
         };
     }
 }
-
+// display todos on screen
 function displayTodos(todos) {
+    console.log(todos); // TODO console.log
     const template = document.querySelector('#todo-item').innerHTML;
     Mustache.parse(template);
     const rendered = Mustache.render(template, todos);
     document.querySelector('#todo-list2').innerHTML = rendered;
+}
+
+document.querySelector('.dropdown-menu').addEventListener('click', function (e) {    
+    const sortMethod = e.target.dataset.sort;
+    console.log(sortTodos(todos, sortMethod)); // TODO console.log
+    let sortArr = sortTodos(todos, sortMethod);
+    displayTodos(sortArr)
+})
+
+//Sort todos
+function sortTodos(todos, sortMethod) {
+    switch (sortMethod) {
+        case 'date':
+            //do something
+            console.log(todos); // TODO console.log
+            return todos.todos.sort((a, b) => {
+                return b.date - a.date;
+            });
+        case 'done':
+            return todos.todos.sort((a,b) => {
+                return b.done - a.done;
+            });
+        case 'name':
+            return todos.todos.sort((a,b) => {
+                return b.text - a.text;
+            });
+
+    }
 }
 
 displayTodos(todos);
