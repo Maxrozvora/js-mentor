@@ -4,7 +4,7 @@ const todos = getTodos();
 document.querySelector('#add-form').addEventListener('submit', function (e) {
     e.preventDefault();
     let text = e.target.elements.nameTodo.value;
-    let date = e.target.elements.dueDate.value;
+    let date = new Date(e.target.elements.dueDate.value).toLocaleDateString();
     let todo = {
         text,
         completed: false,
