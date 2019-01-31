@@ -4,18 +4,28 @@ const todos = getTodos();
 document.querySelector('#add-form').addEventListener('submit', function (e) {
     e.preventDefault();
     let text = e.target.elements.nameTodo.value;
-    let date = new Date(e.target.elements.dueDate.value).toLocaleDateString();
-    let todo = {
-        text,
-        completed: false,
-        date,
-        id: generateId()
-    };
+    let date = new Date(e.target.elements.dueDate.value);
+
+    let todo = new todoItem(text, date);
+    console.log(todo); // TODO console.log
     todos.todos.push(todo);
     setTodos(todos);
     resetAddTodoForm(e);
     displayTodos(todos);
 });
+
+// class todo item
+class todoItem {
+    constructor(text, date) {
+        this.text = text;
+        this.date = this.getDate(date);
+        this.complete =  false;
+        this.id = generateId();
+    }
+    getDate(date) {
+        return date.toDateString()
+    }
+}
 
 // Clean form inputs
 function resetAddTodoForm (e) {
@@ -62,12 +72,19 @@ document.querySelector('.dropdown-menu').addEventListener('click', function (e) 
 
 //Sort todos
 function sortTodos(todos, sortMethod) {
+    const order = -1;
     switch (sortMethod) {
         case 'date':
-            //do something
-            return todos.todos.sort((a, b) => {
-                return b.date - a.date;
+             const sort = todos.todos.sort((a, b) => {
+                 const dateA = new Date(a.date);
+                 const dateB = new Date(b.date);
+                 console.log((dateB - dateA) * order); // TODO console.log
+                return (dateA - dateB) * order;
             });
+            const todosSort = {
+                todos: sort
+            };
+            return todosSort;
         case 'done':
             return todos.todos.sort((a,b) => {
                 return b.done - a.done;
@@ -79,5 +96,6 @@ function sortTodos(todos, sortMethod) {
 
     }
 }
+
 
 displayTodos(todos);
