@@ -65,7 +65,6 @@ function sortTodos(todos, sortMethod) {
     switch (sortMethod) {
         case 'date':
             //do something
-            console.log(todos); // TODO console.log
             return todos.todos.sort((a, b) => {
                 return b.date - a.date;
             });
