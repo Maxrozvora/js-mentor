@@ -19,7 +19,7 @@ class todoItem {
     constructor(text, date) {
         this.text = text;
         this.date = this.getDate(date);
-        this.complete =  false;
+        this.complete =  true;
         this.id = generateId();
     }
     getDate(date) {
@@ -73,25 +73,36 @@ document.querySelector('.dropdown-menu').addEventListener('click', function (e) 
 function sortTodos(todos, sortMethod) {
     switch (sortMethod) {
         case 'date':
-             const sort = todos.todos.sort((a, b) => {
+             const sortArrByDate = todos.todos.sort((a, b) => {
+                 console.log(a.date); // TODO console.log
                  const dateA = new Date(a.date);
                  const dateB = new Date(b.date);
                 return (dateA - dateB);
             });
-            const todosSort = {
-                todos: sort
-            };
-            return todosSort;
-        // case 'done':
-        //     return todos.todos.sort((a,b) => {
-        //         return b.done - a.done;
-        //     });
-        // case 'name':
-        //     return todos.todos.sort((a,b) => {
-        //         return b.text - a.text;
-        //     });
+
+            return returnResultSort(sortArrByDate);
+        case 'done':
+            const sortArrByDone = todos.todos.sort((a,b) => {
+                return b.complete - a.complete;
+            });
+            return returnResultSort(sortArrByDone);
+        case 'name':
+            const sortArrByName =  todos.todos.sort((a,b) => {
+                if (a.text > b.text) {
+                    return 1; }
+                if (a.text < b.text) {
+                    return -1; }
+                return 0;
+            });
+            return returnResultSort(sortArrByName);
 
     }
+}
+
+function returnResultSort(sortArr) {
+    return {
+        todos: sortArr
+    };
 }
 
 
