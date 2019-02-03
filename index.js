@@ -59,8 +59,7 @@ function displayTodos(todos) {
     console.log(todos); // TODO console.log
     const template = document.querySelector('#todo-item').innerHTML;
     Mustache.parse(template);
-    const rendered = Mustache.render(template, todos);
-    document.querySelector('#todo-list2').innerHTML = rendered;
+    document.querySelector('#todo-list2').innerHTML = Mustache.render(template, todos);
 }
 
 document.querySelector('.dropdown-menu').addEventListener('click', function (e) {    
@@ -72,20 +71,21 @@ document.querySelector('.dropdown-menu').addEventListener('click', function (e) 
 //Sort todos
 function sortTodos(todos, sortMethod) {
     switch (sortMethod) {
+        // Sort by date
         case 'date':
              const sortArrByDate = todos.todos.sort((a, b) => {
-                 console.log(a.date); // TODO console.log
                  const dateA = new Date(a.date);
                  const dateB = new Date(b.date);
                 return (dateA - dateB);
             });
-
             return returnResultSort(sortArrByDate);
+        // Sort by completed
         case 'done':
             const sortArrByDone = todos.todos.sort((a,b) => {
                 return b.complete - a.complete;
             });
             return returnResultSort(sortArrByDone);
+        // Sort by name
         case 'name':
             const sortArrByName =  todos.todos.sort((a,b) => {
                 if (a.text > b.text) {
