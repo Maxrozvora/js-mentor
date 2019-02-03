@@ -23,7 +23,7 @@ class todoItem {
         this.id = generateId();
     }
     getDate(date) {
-        return date.toDateString()
+        return date.toDateString();
     }
 }
 
@@ -65,34 +65,31 @@ function displayTodos(todos) {
 
 document.querySelector('.dropdown-menu').addEventListener('click', function (e) {    
     const sortMethod = e.target.dataset.sort;
-    console.log(sortTodos(todos, sortMethod)); // TODO console.log
     let sortArr = sortTodos(todos, sortMethod);
     displayTodos(sortArr)
-})
+});
 
 //Sort todos
 function sortTodos(todos, sortMethod) {
-    const order = -1;
     switch (sortMethod) {
         case 'date':
              const sort = todos.todos.sort((a, b) => {
                  const dateA = new Date(a.date);
                  const dateB = new Date(b.date);
-                 console.log((dateB - dateA) * order); // TODO console.log
-                return (dateA - dateB) * order;
+                return (dateA - dateB);
             });
             const todosSort = {
                 todos: sort
             };
             return todosSort;
-        case 'done':
-            return todos.todos.sort((a,b) => {
-                return b.done - a.done;
-            });
-        case 'name':
-            return todos.todos.sort((a,b) => {
-                return b.text - a.text;
-            });
+        // case 'done':
+        //     return todos.todos.sort((a,b) => {
+        //         return b.done - a.done;
+        //     });
+        // case 'name':
+        //     return todos.todos.sort((a,b) => {
+        //         return b.text - a.text;
+        //     });
 
     }
 }
