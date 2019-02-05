@@ -119,4 +119,4 @@ function toggleSortOrder(e) {
 
 
 
-displayTodos(todos);
+displayTodos(sortTodos(todos, 'date', -1));
