@@ -56,18 +56,16 @@ function getTodos() {
 }
 // display todos on screen
 function displayTodos(todos) {
-    console.log(todos); // TODO console.log
     const template = document.querySelector('#todo-item').innerHTML;
     Mustache.parse(template);
-    // document.querySelector('#todo-list2').innerHTML = Mustache.render(template, sortTodos(todos, sortMethod));
-    document.querySelector('#todo-list2').innerHTML = Mustache.render(template, sortTodos(todos, 'date', 1));
+    document.querySelector('#todo-list2').innerHTML = Mustache.render(template, todos);
 }
 
 document.querySelector('.dropdown-menu').addEventListener('click', function (e) {    
     const sortMethod = e.target.dataset.sort;
     const sortOrder = e.target.dataset.order === 'asc' ? -1 : 1;
     toggleSortOrder(e);
-    let sortArr = sortTodos(todos, sortMethod, sortOrder);
+    const sortArr = sortTodos(todos, sortMethod, sortOrder);
     displayTodos(sortArr)
 });
 
@@ -95,7 +93,6 @@ function sortTodos(todos, sortMethod, sortOrder) {
             };
         // Sort by name
         case 'text':
-            console.log(sortOrder); // TODO console.log
             const sortArrByName =  todos.todos.sort((a,b) => {
                 if (a.text > b.text) {
                     return 1 * sortOrder;
