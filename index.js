@@ -66,6 +66,7 @@ function displayTodos(todos) {
 document.querySelector('.dropdown-menu').addEventListener('click', function (e) {    
     const sortMethod = e.target.dataset.sort;
     const sortOrder = e.target.dataset.order === 'asc' ? -1 : 1;
+    toggleSortOrder(e);
     let sortArr = sortTodos(todos, sortMethod, sortOrder);
     displayTodos(sortArr)
 });
@@ -108,6 +109,14 @@ function sortTodos(todos, sortMethod, sortOrder) {
                 todos: sortArrByName
             };
 
+    }
+}
+
+function toggleSortOrder(e) {
+    if (e.target.dataset.order === 'asc') {
+        e.target.dataset.order = 'desc'
+    } else {
+        e.target.dataset.order = 'asc'
     }
 }
 
