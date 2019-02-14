@@ -110,11 +110,7 @@ function sortTodos(todos, sortMethod, sortOrder) {
 }
 
 function toggleSortOrder(e) {
-    if (e.target.dataset.order === 'asc') {
-        e.target.dataset.order = 'desc'
-    } else {
-        e.target.dataset.order = 'asc'
-    }
+    e.target.dataset.order = (e.target.dataset.order === 'asc') ? 'desc' : 'asc';
 }
 
 
