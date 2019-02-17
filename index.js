@@ -75,25 +75,21 @@ function sortTodos(todos, sortMethod, sortOrder) {
     switch (sortMethod) {
         // Sort by date
         case 'date':
-             const sortArrByDate = todos.todos.sort((a, b) => {
+             todos.todos = todos.todos.sort((a, b) => {
                  const dateA = new Date(a.date);
                  const dateB = new Date(b.date);
                 return (dateA - dateB) * sortOrder;
             });
-            return {
-                todos: sortArrByDate
-            };
+            return todos;
         // Sort by completed
         case 'complete':
-            const sortArrByDone = todos.todos.sort((a,b) => {
+            todos.todos = todos.todos.sort((a,b) => {
                 return (b.complete - a.complete) * sortOrder;
             });
-            return {
-                todos: sortArrByDone
-            };
+            return todos;
         // Sort by name
         case 'text':
-            const sortArrByName =  todos.todos.sort((a,b) => {
+            todos.todos =  todos.todos.sort((a,b) => {
                 if (a.text > b.text) {
                     return 1 * sortOrder;
                 }
@@ -102,10 +98,7 @@ function sortTodos(todos, sortMethod, sortOrder) {
                 }
                 return 0;
             });
-            return {
-                todos: sortArrByName
-            };
-
+            return todos;
     }
 }
 
